@@ -1,0 +1,26 @@
+We want to determine the largest number of points possible for a given semester’s homework
+choices, given an int[n] e, which gives the points for easy assignments, and int[n] h, with 
+the points for the hard assignments. 
+
+1) Recursive Solution: P(n) -> calculates the largest number of total points for homework 
+assignments indices 0 to n. 
+
+if (n < 0) return 0;
+else if (n == 0) return h[0];
+else {
+	int hard = h[n] + P(n-2);
+	int easy = e[n] + P(n-1);
+	return max(hard, easy);
+}
+
+2) Analysis: Since n corresponds to the index i for array e & h, if it is less than 0, it 
+does not correspond to any homework assignments. If n is 0, it corresponds to the 1st homework
+assignment. Since we have not done any assignments before the 1st assignment, we should always
+do the hard assignment because the point value is higher.
+
+If neither of these base cases apply, we want to calculate the total points if we do the hard
+version and points if we do the easy version, then compare them. If we do the nth hard 
+assignment, we must not have done the (n-1)th assignment. Thus, the points total to h[n] + total
+points for assignments 0 to n-2 (P(n-2)). However, if we do the nth easy assignment, there are 
+no restrictions on whether we do the previous assignment, so it equals e[n] + total points for 
+assignments 0 to n-1 (P(n-1)). Compare these two values and return the larger.
