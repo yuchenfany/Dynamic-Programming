@@ -1,0 +1,13 @@
+Problem Statement: 
+College students get a lot of free food at various events. Suppose you have a schedule of the
+next n days marked with those days when you get a free dinner, and those days on which you
+must acquire dinner on your own. On any given day you can buy dinner at the cafeteria for
+$6. Alternatively, you can purchase one week’s groceries for $20, which will provide dinner
+for each day that week. However, because you don’t have a fridge, the groceries will go bad
+after seven days (including the day of purchase) and any leftovers must be discarded. Due to
+your very busy schedule, these are your only three options for dinner each night.
+Write a dynamic programming algorithm to determine, given the schedule of free meals, the
+minimum amount of money you must spend to make sure you have dinner each night and
+to print the dates on which you should purchase groceries. Explain why your algorithm is
+correct and has running time polynomial in n, the number of days on the schedule.
+
