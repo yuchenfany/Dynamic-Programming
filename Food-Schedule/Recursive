@@ -1,0 +1,28 @@
+M(n) -> computes the min amount of money needed to have dinner for nights 0 to n (simultaneously also prints out 
+dates to buy groceries)
+
+if (n < 0) return 0;
+else if (F[n] == 0) return M(n-1); 
+else {
+	int buyGroceries = 20 + M(n-7);
+	int noGroceries = 6 + M(n-1);
+	if (buyGroceries < noGroceries) {System.out.println(n-6); }
+	return min(buyGroceries, noGroceries);
+}
+//To calculate the cost for dinner for n days, call M(n-1).
+
+Analysis: The first line of the recursive solution is the base case. If n is less than 0, then it does not correspond 
+to any day, and there also are not any days before it (return 0). In addition, if n is a free night, then the cost is 
+simply M(n-1), or the total cost for (n-1) nights. 
+
+If both of these do not apply, then we will calculate the total cost if we bought groceries 6 days ago (which will 
+still cover night n) and the total cost if we buy dinner from the cafeteria on night n. If n is not a free night, 
+there are only two options for dinner: groceries or cafeteria. If it is covered through groceries, the groceries
+must have been purchased on a day (n-6) to n. Since we want to maximize the use of the groceries (cover more days),
+we will assume they were purchased 6 days ago.
+
+The total cost if we buy groceries must be equal to 20 (cost of groceries) + the cost of dinner for nights 1 to
+n-7 because dinner is automatically covered for a week. The total cost if we buy dinner at the cafeteria is equal
+to 6 (cost of meal) + the cost of dinner for nights 1 to n-1. If total cost w/ groceries is lower, print the date we 
+want to buy them. We then return the lower of the two costs.
+
