@@ -1,0 +1,17 @@
+Iterative version: 
+
+Create an int[n] array p. p[i] = P(i), by definition.
+
+p[0] = h[0]; //h[0] > e[0]
+p[1] = max(p[0] + e[1], h[1]); //compare to see which is larger
+for (int i = 2; i < n; i++) { 
+	int hard = h[i] + p[i-2]; 
+	int easy = e[i] + p[i-1];
+	p[i] = max(hard, easy); //compare pts for hard & easy
+}
+
+Analysis/complexity: 
+
+This algorithm has O(n) or linear runtime. The for loop is executed ~n times, and 
+has a constant number of operations in its body. 
+
