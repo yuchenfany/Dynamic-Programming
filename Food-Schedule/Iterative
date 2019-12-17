@@ -1,0 +1,49 @@
+Iterative version: Create an int[] C array of size n. C[i] = M(i) or the total cost for dinners 0 to i. In addition, 
+initialize a 2D int[][] G array with dimensions nxn of the groceries-buying schedule. Row G[i] represents the 
+grocery-buying schedule for M(i), or dinner nights 0 to i. If G[i][j] is set to 1, this means that for the lowest 
+cost for dinner nights 0 to i, you should purchase groceries on day j. 
+
+Helper function H(n) {
+if (n < 0) return 0;
+else return C[n];
+}
+
+C[0] = F[i]*6; //sets cost to 0 if it is free night, 6 if not
+for (int i = 1; i < n; i++) {
+	int prev = 0; //set to index of the row to copy
+	int groceries = 20 + H(i-7); //H(i-7) returns C[i-7] if i>= 7, otherwise 0
+	int noGroceries = F[i]*6 + C[i-1];
+
+	if (noGroceries < groceries) {
+		C[i] = noGroceries;
+		prev = i-1; //if we do not buy groceries, copy grocery schedule of i-1
+	} else {
+		C[i] = groceries;
+		prev = i-7;
+		G[i][i-6] = 1; //should have bought groceries 6 days ago
+	}
+	for (int j = 0; j <= prev; j++) { //set row G[i] equal to G[prev]
+		G[i][j] = G[prev][j]; 	
+	}
+}
+
+for (int j = 0; j < n; j++) { //prints out days to buy groceries
+	if (G[n-1][j] == 1) System.out.println(“Buy groceries on day: ” + j);
+}
+
+Analysis/complexity:
+We have two data structures, int[] C, and int[][] G. To compute C[i] from i = 1 to n-1, we assume that 
+for a < i, C[a] is correct. Then, similarly to the recursive algorithm, we compare the cost of buying 
+groceries (20 + C[i-7]) to the cost of not (F[i]*6 + C[i-1). We compute F[i]*6 because it will equal 0 
+if it is a free day and 6 if not. We are performing constant operations for i = 1 to n-1, so this 
+only requires linear time. 
+
+To fill in row G[i], we make the same assumption that G[a] where a < i, is correct and represents the 
+correct grocery-buying schedule for C[a]. Then, if we buy groceries, we should set G[i][i-6] to 1, 
+because we should buy groceries on day i-6. Then, because the optimal schedule for C[i] uses the same 
+schedule as C[i-7] and then buys groceries on day i-6 to cover the last week, we should copy the values
+in G[i-7] to G[i] (to get the same schedule). If we do not buy groceries, we should copy row G[i-1] 
+because we are using the schedule of G[i-1] to reach day i-1 and then getting a free/cafeteria dinner. 
+For each value of i from 1 to n-1, we are performing at most n operations to iterate through indices in
+row G[i]. In essence, for every value of i, we perform linear-time operations. Since there are ~n values
+of i, we need polynomial (O(n^2)) time.
