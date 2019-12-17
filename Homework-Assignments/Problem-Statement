@@ -1,0 +1,12 @@
+Shindler gives lots of homework assignments, each of which have an easy version and a hard
+version. Each student is allowed, for each homework, to submit either their answer to the
+easy version (and get e_i > 0 points) or the hard version (and get h_i > 0 points, which is
+also guaranteed to always be more than e_i) or to submit neither (and get 0 points for the
+assignment). Note that e_i might have different values for each i, as might h_i. The values for
+all n assignments are known at the start of the semester.
+
+The catch is that the hard version is, perhaps not surprisingly, more difficult than the easy
+version. In order for you to do the hard version, you must have not done the previous assignment at all: neither the easy nor the hard version (and thus are more relaxed, de-stressed,
+etc). Your goal is to maximize the number of points you get from homework assignments over
+the course of the semester. Give an efficient dynamic programming algorithm to determine
+the largest number of points possible for a given semester’s homework choices.
